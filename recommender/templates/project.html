@@ -1,0 +1,32 @@
+{% extends 'pages/base.html' %}
+
+{% block title %} Project{% endblock %}
+
+{% block content%}
+
+<h3>{{project.name}}</a></h3> 
+<i>Created at {{project.date|date:'d/m/Y'}}</i>
+<br/>
+<br/>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Upload</button>
+</form>
+
+<h5>Project files list</h5>
+{% for f in files %}
+<p>{{f.display_name}}</p>
+{%endfor%}
+<h5>Create node</h5>
+<form action="." method="POST">
+    {% csrf_token %}
+    {{ node_create_form.as_p }}
+    <button type="submit">Create</button>
+  </form>
+<h5>Recommended by KNN</h5>
+{% for item in recommendation %}
+<p>{{item.RecommendedMovies}}</p>
+{%endfor%}
+{% endblock %}
